@@ -45,9 +45,16 @@ class Acheteur
     #[ORM\OneToMany(targetEntity: Panier::class, mappedBy: 'Acheteur', orphanRemoval: true)]
     private Collection $paniers;
 
+    /**
+     * @var Collection<int, Lot>
+     */
+    #[ORM\OneToMany(targetEntity: Lot::class, mappedBy: 'Acheteur', orphanRemoval: true)]
+    private Collection $lots;
+
     public function __construct()
     {
         $this->paniers = new ArrayCollection();
+        $this->lots = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -175,6 +182,36 @@ class Acheteur
             // set the owning side to null (unless already changed)
             if ($panier->getAcheteur() === $this) {
                 $panier->setAcheteur(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Lot>
+     */
+    public function getLots(): Collection
+    {
+        return $this->lots;
+    }
+
+    public function addLot(Lot $lot): static
+    {
+        if (!$this->lots->contains($lot)) {
+            $this->lots->add($lot);
+            $lot->setAcheteur($this);
+        }
+
+        return $this;
+    }
+
+    public function removeLot(Lot $lot): static
+    {
+        if ($this->lots->removeElement($lot)) {
+            // set the owning side to null (unless already changed)
+            if ($lot->getAcheteur() === $this) {
+                $lot->setAcheteur(null);
             }
         }
 

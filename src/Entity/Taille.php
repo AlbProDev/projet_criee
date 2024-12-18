@@ -12,8 +12,8 @@ class Taille
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
-    #[ORM\Column]
-    private ?int $id = null;
+    #[ORM\Column(name: "idTaille", type: "integer")]
+    private ?int $idTaille = null;
 
     #[ORM\Column(length: 50)]
     private ?string $specification = null;
@@ -31,7 +31,7 @@ class Taille
 
     public function getId(): ?int
     {
-        return $this->id;
+        return $this->idTaille;
     }
 
     public function getSpecification(): ?string

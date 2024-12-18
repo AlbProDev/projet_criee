@@ -12,8 +12,8 @@ class Bateau
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
-    #[ORM\Column]
-    private ?int $id = null;
+    #[ORM\Column(name: "idBateau", type: "integer")]
+    private ?int $idBateau = null;
 
     #[ORM\Column(length: 50)]
     private ?string $nomBateau = null;
@@ -24,14 +24,21 @@ class Bateau
     #[ORM\OneToMany(targetEntity: Peche::class, mappedBy: 'Bateau', orphanRemoval: true)]
     private Collection $peches;
 
+    /**
+     * @var Collection<int, Lot>
+     */
+    #[ORM\OneToMany(targetEntity: Lot::class, mappedBy: 'Bateau', orphanRemoval: true)]
+    private Collection $lots;
+
     public function __construct()
     {
         $this->peches = new ArrayCollection();
+        $this->lots = new ArrayCollection();
     }
 
     public function getId(): ?int
     {
-        return $this->id;
+        return $this->idBateau;
     }
 
     public function getNomBateau(): ?string
@@ -75,4 +82,14 @@ class Bateau
 
         return $this;
     }
+
+    /**
+     * @return Collection<int, Lot>
+     */
+    public function getLots(): Collection
+    {
+        return $this->lots;
+    }
+
+    
 }

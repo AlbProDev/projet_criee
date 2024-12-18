@@ -13,14 +13,14 @@ class Panier
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
-    #[ORM\Column]
-    private ?int $id = null;
+    #[ORM\Column(name: "idPanier", type: "integer")]
+    private ?int $idPanier = null;
 
     #[ORM\Column(type: Types::DECIMAL, precision: 15, scale: 2)]
     private ?string $total = null;
 
     #[ORM\ManyToOne(inversedBy: 'paniers')]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\JoinColumn(name: 'idAcheteur',referencedColumnName: 'idAcheteur',nullable: false, onDelete: 'CASCADE')]
     private ?Acheteur $Acheteur = null;
 
     /**
@@ -36,7 +36,7 @@ class Panier
 
     public function getId(): ?int
     {
-        return $this->id;
+        return $this->idPanier;
     }
 
     public function getTotal(): ?string

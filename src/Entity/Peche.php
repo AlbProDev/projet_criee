@@ -1,26 +1,25 @@
 <?php
 
+// src/Entity/Peche.php
+
 namespace App\Entity;
 
-use App\Repository\PecheRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\PecheRepository;
 
 #[ORM\Entity(repositoryClass: PecheRepository::class)]
 class Peche
 {
     #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column]
-    private ?int $id = null;
-
-    #[ORM\Column]
-    private ?\DateTimeImmutable $datePeche = null;
-
-    #[ORM\ManyToOne(inversedBy: 'peches')]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\ManyToOne(targetEntity: Bateau::class, inversedBy: 'peches')]
+    #[ORM\JoinColumn(name: 'idBateau', referencedColumnName: 'idBateau', nullable: false, onDelete: 'CASCADE')]
     private ?Bateau $Bateau = null;
+
+    #[ORM\Id]
+    #[ORM\Column(name: "datePeche", type: "datetime_immutable")]
+    private ?\DateTimeImmutable $datePeche = null;
 
     /**
      * @var Collection<int, Lot>
@@ -33,9 +32,15 @@ class Peche
         $this->lots = new ArrayCollection();
     }
 
-    public function getId(): ?int
+    public function getBateau(): ?Bateau
     {
-        return $this->id;
+        return $this->Bateau;
+    }
+
+    public function setBateau(?Bateau $Bateau): static
+    {
+        $this->Bateau = $Bateau;
+        return $this;
     }
 
     public function getDatePeche(): ?\DateTimeImmutable
@@ -46,19 +51,6 @@ class Peche
     public function setDatePeche(\DateTimeImmutable $datePeche): static
     {
         $this->datePeche = $datePeche;
-
-        return $this;
-    }
-
-    public function getBateau(): ?Bateau
-    {
-        return $this->Bateau;
-    }
-
-    public function setBateau(?Bateau $Bateau): static
-    {
-        $this->Bateau = $Bateau;
-
         return $this;
     }
 

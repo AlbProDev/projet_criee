@@ -12,8 +12,8 @@ class Bac
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
-    #[ORM\Column]
-    private ?int $id = null;
+    #[ORM\Column(name: "idBac", type: "integer")]
+    private ?int $idBac = null;
 
     #[ORM\Column(length: 50)]
     private ?string $tare = null;
@@ -34,7 +34,7 @@ class Bac
 
     public function getId(): ?int
     {
-        return $this->id;
+        return $this->idBac;
     }
 
     public function getTare(): ?string

@@ -12,19 +12,19 @@ class Acheteur
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
-    #[ORM\Column]
-    private ?int $id = null;
+    #[ORM\Column(name: "idAcheteur", type: "integer")]
+    private ?int $idAcheteur = null;
 
     #[ORM\Column(length: 50)]
     private ?string $loginA = null;
 
-    #[ORM\Column(length: 32)]
-    private ?string $pwdA = null;
-
     #[ORM\Column(length: 50)]
+    private ?string $pwd = null;
+
+    #[ORM\Column(length: 100)]
     private ?string $raisonSocialeEntreprise = null;
 
-    #[ORM\Column(length: 10)]
+    #[ORM\Column(length: 12)]
     private ?string $locRue = null;
 
     #[ORM\Column(length: 80)]
@@ -59,7 +59,7 @@ class Acheteur
 
     public function getId(): ?int
     {
-        return $this->id;
+        return $this->idAcheteur;
     }
 
     public function getLoginA(): ?string
@@ -74,14 +74,14 @@ class Acheteur
         return $this;
     }
 
-    public function getPwdA(): ?string
+    public function getPwd(): ?string
     {
-        return $this->pwdA;
+        return $this->pwd;
     }
 
-    public function setPwdA(string $pwdA): static
+    public function setPwd(string $pwd): static
     {
-        $this->pwdA = $pwdA;
+        $this->pwd = $pwd;
 
         return $this;
     }

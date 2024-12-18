@@ -12,13 +12,13 @@ class Espece
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
-    #[ORM\Column]
-    private ?int $id = null;
+    #[ORM\Column(name: "idEspece", type: "integer")]
+    private ?int $idEspece = null;
 
     #[ORM\Column(length: 50)]
     private ?string $nomEspece = null;
 
-    #[ORM\Column(length: 100)]
+    #[ORM\Column(length: 80)]
     private ?string $nomScientifiqueEspece = null;
 
     #[ORM\Column(length: 50)]
@@ -37,7 +37,7 @@ class Espece
 
     public function getId(): ?int
     {
-        return $this->id;
+        return $this->idEspece;
     }
 
     public function getNomEspece(): ?string

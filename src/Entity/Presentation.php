@@ -12,8 +12,8 @@ class Presentation
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
-    #[ORM\Column]
-    private ?int $id = null;
+    #[ORM\Column(name: "idPresentation", type: "integer")]
+    private ?int $idPresentation = null;
 
     #[ORM\Column(length: 100)]
     private ?string $libelle = null;
@@ -31,7 +31,7 @@ class Presentation
 
     public function getId(): ?int
     {
-        return $this->id;
+        return $this->idPresentation;
     }
 
     public function getLibelle(): ?string
